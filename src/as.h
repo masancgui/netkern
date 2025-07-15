@@ -15,29 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "as.h"
+#ifndef NETKERN_AS_H_
+#define NETKERN_AS_H_
 
-.section .text.entry
+#ifdef __ASSEMBLER__
+// clang-format off
+#define START_FUNC(name) \
+  .global name;          \
+  .type name, %function; \
+  name:
 
-START_FUNC(_kernel_entry)
-  // Set up the stack.
-  ldr x0, =__stack_top
-  mov sp, x0
+#define START_PRIV_FUNC(name) \
+  .type name, %function;      \
+  name:
 
-  // Clear the BSS section.
-  ldr x0, =__bss_start
-  ldr x1, =__bss_size
-  cbz x1, 2f
-1:
-  str xzr, [x0], #8
-  sub x1, x1, #1
-  cbnz x1, 1b
+#define END_FUNC(name) \
+  .size name, .-name
+// clang-format on
+#endif
 
-2:
-  // And jump into C code.
-  bl kernel_entry
-
-3:
-  wfi
-  b 3b
-END_FUNC(_kernel_entry)
+#endif

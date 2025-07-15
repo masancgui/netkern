@@ -26,6 +26,7 @@ QEMUFLAGS = \
 OBJ = \
 	src/cc.o \
 	src/entry.o \
+	src/handle.o \
 	src/l.o \
 	src/print.o \
 	src/vec.o
