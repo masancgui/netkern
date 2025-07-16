@@ -24,11 +24,11 @@ QEMUFLAGS = \
 	-serial mon:stdio
 
 OBJ = \
-	src/cc.o \
 	src/entry.o \
 	src/handle.o \
 	src/l.o \
 	src/print.o \
+	src/string.o \
 	src/vec.o
 
 DEPS := $(OBJ:.o=.d)

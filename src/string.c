@@ -15,12 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "cc.h"
+#include "string.h"
 
 #include <stddef.h>
 #include <stdint.h>
 
-// GCC may introduce implicit calls to these functions.
+// GCC requires the freestanding environment provide memcpy, memset, memmove and
+// memcmp. It may introduce implicit calls to these functions, so keep them.
 
 void *memcpy(void *dest, const void *src, size_t n) {
   uint8_t *pdest = (uint8_t *)dest;

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "as.h"
+#include "asmacros.h"
 
 // The alignment of the vector table is 0x800, and the alignment of each entry
 // is 0x80.

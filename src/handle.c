@@ -19,7 +19,7 @@
 
 #include "print.h"
 
-struct frame {
+struct regs {
   uint64_t x0;
   uint64_t x1;
   uint64_t x2;
@@ -53,38 +53,38 @@ struct frame {
   uint64_t x30;
 };
 
-void handle_except(struct frame *frame) {
-  print("x0: %lx\n", frame->x0);
-  print("x1: %lx\n", frame->x1);
-  print("x2: %lx\n", frame->x2);
-  print("x3: %lx\n", frame->x3);
-  print("x4: %lx\n", frame->x4);
-  print("x5: %lx\n", frame->x5);
-  print("x6: %lx\n", frame->x6);
-  print("x7: %lx\n", frame->x7);
-  print("x8: %lx\n", frame->x8);
-  print("x9: %lx\n", frame->x9);
-  print("x10: %lx\n", frame->x10);
-  print("x11: %lx\n", frame->x11);
-  print("x12: %lx\n", frame->x12);
-  print("x13: %lx\n", frame->x13);
-  print("x14: %lx\n", frame->x14);
-  print("x15: %lx\n", frame->x15);
-  print("x16: %lx\n", frame->x16);
-  print("x17: %lx\n", frame->x17);
-  print("x18: %lx\n", frame->x18);
-  print("x19: %lx\n", frame->x19);
-  print("x20: %lx\n", frame->x20);
-  print("x21: %lx\n", frame->x21);
-  print("x22: %lx\n", frame->x22);
-  print("x23: %lx\n", frame->x23);
-  print("x24: %lx\n", frame->x24);
-  print("x25: %lx\n", frame->x25);
-  print("x26: %lx\n", frame->x26);
-  print("x27: %lx\n", frame->x27);
-  print("x28: %lx\n", frame->x28);
-  print("x29: %lx\n", frame->x29);
-  print("x30: %lx\n", frame->x30);
+void handle_except(struct regs *regs) {
+  print("x0: %lx\n", regs->x0);
+  print("x1: %lx\n", regs->x1);
+  print("x2: %lx\n", regs->x2);
+  print("x3: %lx\n", regs->x3);
+  print("x4: %lx\n", regs->x4);
+  print("x5: %lx\n", regs->x5);
+  print("x6: %lx\n", regs->x6);
+  print("x7: %lx\n", regs->x7);
+  print("x8: %lx\n", regs->x8);
+  print("x9: %lx\n", regs->x9);
+  print("x10: %lx\n", regs->x10);
+  print("x11: %lx\n", regs->x11);
+  print("x12: %lx\n", regs->x12);
+  print("x13: %lx\n", regs->x13);
+  print("x14: %lx\n", regs->x14);
+  print("x15: %lx\n", regs->x15);
+  print("x16: %lx\n", regs->x16);
+  print("x17: %lx\n", regs->x17);
+  print("x18: %lx\n", regs->x18);
+  print("x19: %lx\n", regs->x19);
+  print("x20: %lx\n", regs->x20);
+  print("x21: %lx\n", regs->x21);
+  print("x22: %lx\n", regs->x22);
+  print("x23: %lx\n", regs->x23);
+  print("x24: %lx\n", regs->x24);
+  print("x25: %lx\n", regs->x25);
+  print("x26: %lx\n", regs->x26);
+  print("x27: %lx\n", regs->x27);
+  print("x28: %lx\n", regs->x28);
+  print("x29: %lx\n", regs->x29);
+  print("x30: %lx\n", regs->x30);
 
   for (;;) {
     asm volatile("wfi");

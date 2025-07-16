@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NETKERN_CC_H_
-#define NETKERN_CC_H_
+#ifndef NETKERN_STRING_H_
+#define NETKERN_STRING_H_
 
 #include <stddef.h>
 

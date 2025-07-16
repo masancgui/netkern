@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "as.h"
+#include "asmacros.h"
 
 .section .text.entry
 

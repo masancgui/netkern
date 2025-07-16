@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NETKERN_AS_H_
-#define NETKERN_AS_H_
+#ifndef NETKERN_ASMACROS_H_
+#define NETKERN_ASMACROS_H_
 
 #ifdef __ASSEMBLER__
 // clang-format off
