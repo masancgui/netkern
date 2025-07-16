@@ -20,13 +20,16 @@ LDFLAGS = \
 QEMUFLAGS = \
 	-machine virt \
 	-cpu cortex-a53 \
+	-m 16M \
 	-nographic \
 	-serial mon:stdio
 
 OBJ = \
+	src/arm.o \
 	src/entry.o \
 	src/handle.o \
 	src/l.o \
+	src/physmem.o \
 	src/print.o \
 	src/string.o \
 	src/vec.o

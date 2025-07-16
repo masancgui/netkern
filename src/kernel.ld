@@ -9,7 +9,7 @@ PHDRS
 
 SECTIONS
 {
-  . = 0x40100000;
+  . = 0x40000000;
 
   .text : {
     *(.text.entry)
@@ -32,9 +32,12 @@ SECTIONS
     __bss_end = .;
   } :data
 
-  . += 0x1000;
+  . += 4096;
   . = ALIGN(16);
   __stack_top = .;
+
+  . = ALIGN(4096);
+  __end = .;
 }
 
 __bss_size = (__bss_end - __bss_start) >> 3;

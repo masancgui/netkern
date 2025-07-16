@@ -17,6 +17,7 @@
 
 #include <stdint.h>
 
+#include "arm.h"
 #include "print.h"
 
 struct regs {
@@ -86,7 +87,5 @@ void handle_except(struct regs *regs) {
   print("x29: %lx\n", regs->x29);
   print("x30: %lx\n", regs->x30);
 
-  for (;;) {
-    asm volatile("wfi");
-  }
+  halt_forever();
 }

@@ -15,15 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "arm.h"
+#include "physmem.h"
 #include "print.h"
 
 void load_vec_table(void);
 
 void kernel_entry(void) {
   load_vec_table();
+  physmem_init();
   print("Netkern entry\n");
 
-  for (;;) {
-    asm volatile("wfi");
-  }
+  halt_forever();
 }

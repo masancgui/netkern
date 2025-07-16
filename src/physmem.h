@@ -15,11 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NETKERN_PRINT_H_
-#define NETKERN_PRINT_H_
+#ifndef NETKERN_PHYSMEM_H_
+#define NETKERN_PHYSMEM_H_
 
-void print(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
-void panic(const char *fmt, ...) __attribute__((format(printf, 1, 2)))
-__attribute__((noreturn));
+#include <stdint.h>
+
+void physmem_free(void *page);
+void *physmem_alloc(void);
+void physmem_init(void);
 
 #endif

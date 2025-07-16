@@ -15,11 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NETKERN_PRINT_H_
-#define NETKERN_PRINT_H_
+#ifndef NETKERN_ARM_H_
+#define NETKERN_ARM_H_
 
-void print(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
-void panic(const char *fmt, ...) __attribute__((format(printf, 1, 2)))
-__attribute__((noreturn));
+#define PHYS_START 0x40000000UL
+// It would be better to parse the device tree and get the memory node instead
+// of hardcoding this.
+#define PHYS_END (PHYS_START + 16 * 1024 * 1024)
+
+#define PAGE_SIZE 4096
+
+void halt_forever(void) __attribute__((noreturn));
 
 #endif

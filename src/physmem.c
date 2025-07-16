@@ -15,11 +15,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NETKERN_PRINT_H_
-#define NETKERN_PRINT_H_
+#include "physmem.h"
 
-void print(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
-void panic(const char *fmt, ...) __attribute__((format(printf, 1, 2)))
-__attribute__((noreturn));
+#include <stddef.h>
+#include <stdint.h>
 
-#endif
+#include "arm.h"
+#include "print.h"
+
+struct node {
+  struct node *next;
+};
+
+extern char __end[];
+static struct node *list;
+
+void physmem_free(void *page) {
+  struct node *node = page;
+  node->next = list;
+  list = node;
+}
+
+void *physmem_alloc(void) {
+  if (list == NULL) {
+    panic("Exhausted memory\n");
+  }
+
+  void *ptr = list;
+  list = list->next;
+  return ptr;
+}
+
+void physmem_init(void) {
+  uintptr_t addr = (uintptr_t)__end;
+  for (; addr < PHYS_END; addr += PAGE_SIZE) {
+    physmem_free((void *)addr);
+  }
+}

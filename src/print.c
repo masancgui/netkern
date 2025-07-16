@@ -20,6 +20,8 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
+#include "arm.h"
+
 // The longest representation of an integer is a long in binary.
 #define BUF_SIZE (sizeof(long) * 8)
 
@@ -117,4 +119,14 @@ void print(const char *fmt, ...) {
   vprint(fmt, args);
 
   va_end(args);
+}
+
+void panic(const char *fmt, ...) {
+  va_list args;
+  va_start(args, fmt);
+
+  vprint(fmt, args);
+
+  va_end(args);
+  halt_forever();
 }
