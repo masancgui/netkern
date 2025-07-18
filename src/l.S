@@ -47,7 +47,7 @@ START_FUNC(_boot_stub)
   ldr x2, =PTE_BLOCK_FLAGS(0)
   str x2, [x1]
 
-  // Map 0x40000000-0x80000000 as normal memory.
+  // Map 0x40000000-0x7fffffff as normal memory.
   ldr x2, =0x40000000
   ldr x3, =PTE_BLOCK_FLAGS(1)
   orr x2, x2, x3
