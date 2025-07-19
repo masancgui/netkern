@@ -18,7 +18,9 @@
 #ifndef NETKERN_ARM_H_
 #define NETKERN_ARM_H_
 
-#define PHYS_START 0x40000000UL
+#include "types.h"
+
+#define PHYS_START UL(0x40000000)
 // It would be better to parse the device tree and get the memory node instead
 // of hardcoding this.
 #define PHYS_END (PHYS_START + 16 * 1024 * 1024)
