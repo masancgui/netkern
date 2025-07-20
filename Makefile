@@ -27,11 +27,13 @@ QEMUFLAGS = \
 OBJ = \
 	src/arm.o \
 	src/entry.o \
+	src/gic.o \
 	src/handle.o \
 	src/l.o \
 	src/physmem.o \
 	src/print.o \
 	src/string.o \
+	src/timer.o \
 	src/vec.o
 
 DEPS := $(OBJ:.o=.d)

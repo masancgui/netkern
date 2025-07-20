@@ -15,29 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "arm.h"
 #include "gic.h"
-#include "physmem.h"
-#include "print.h"
+
+#include <stdint.h>
+
 #include "timer.h"
+#include "types.h"
 
-static void load_vec_table(void) {
-  extern char vec_table[];
-  asm volatile("msr vbar_el1, %0" : : "r"(vec_table));
-}
+// Thanks to this blog
+// https://lowenware.com/blog/aarch64-gic-and-timer-interrupt/
 
-static void unmask_irq(void) {
-  asm volatile("msr daifclr, #2");
-}
+#define GICD_BASE UL(0x8000000)
+#define GICD_CTLR 0x0000
+#define GICD_ISENABLER 0x0100
 
-void kernel_entry(void) {
-  load_vec_table();
-  gic_init();
-  unmask_irq();
-  physmem_init();
-  print("Netkern entry\n");
+#define GICC_BASE UL(0x8010000)
+#define GICC_CTLR 0x0000
+#define GICC_PMR 0x0004
 
-  timer_init();
+void gic_init(void) {
+  // Enable the distributor and CPU interface.
+  *(volatile uint32_t *)(GICD_BASE + GICD_CTLR) = 1;
+  *(volatile uint32_t *)(GICC_BASE + GICC_CTLR) = 1;
 
-  halt_forever();
+  // Set the lowest priority.
+  *(volatile uint32_t *)(GICC_BASE + GICC_PMR) = 0xff;
+
+  // TODO: select the correct set-enable register.
+  *(volatile uint32_t *)(GICD_BASE + GICD_ISENABLER) = 1 << TIMER_IRQ;
 }

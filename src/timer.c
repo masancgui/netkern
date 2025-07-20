@@ -15,29 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "arm.h"
-#include "gic.h"
-#include "physmem.h"
-#include "print.h"
 #include "timer.h"
 
-static void load_vec_table(void) {
-  extern char vec_table[];
-  asm volatile("msr vbar_el1, %0" : : "r"(vec_table));
-}
+#include <stdint.h>
 
-static void unmask_irq(void) {
-  asm volatile("msr daifclr, #2");
-}
+void timer_init(void) {
+  uint64_t freq;
+  asm volatile("mrs %0, cntfrq_el0" : "=r"(freq));
+  asm volatile("msr cntp_tval_el0, %0" : : "r"(freq));
 
-void kernel_entry(void) {
-  load_vec_table();
-  gic_init();
-  unmask_irq();
-  physmem_init();
-  print("Netkern entry\n");
-
-  timer_init();
-
-  halt_forever();
+  // Enable the timer.
+  asm volatile("msr cntp_ctl_el0, %0" : : "r"(1));
 }

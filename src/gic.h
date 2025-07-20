@@ -15,29 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "arm.h"
-#include "gic.h"
-#include "physmem.h"
-#include "print.h"
-#include "timer.h"
+#ifndef NETKERN_GIC_H_
+#define NETKERN_GIC_H_
 
-static void load_vec_table(void) {
-  extern char vec_table[];
-  asm volatile("msr vbar_el1, %0" : : "r"(vec_table));
-}
+void gic_init(void);
 
-static void unmask_irq(void) {
-  asm volatile("msr daifclr, #2");
-}
-
-void kernel_entry(void) {
-  load_vec_table();
-  gic_init();
-  unmask_irq();
-  physmem_init();
-  print("Netkern entry\n");
-
-  timer_init();
-
-  halt_forever();
-}
+#endif

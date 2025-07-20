@@ -89,3 +89,10 @@ void handle_except(struct regs *regs) {
 
   halt_forever();
 }
+
+void handle_irq(struct regs *regs) {
+  (void)regs;
+
+  print("IRQ\n");
+  halt_forever();
+}
