@@ -29,7 +29,10 @@ static void load_vec_table(void) {
 void kernel_entry(void) {
   load_vec_table();
   gic_init();
-  unmask_irq();
+
+  // Unmask IRQ.
+  asm volatile("msr daifclr, #2");
+
   physmem_init();
   print("Netkern entry\n");
 

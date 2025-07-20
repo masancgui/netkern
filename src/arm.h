@@ -48,7 +48,6 @@ static inline uint64_t read_cntfrq_el0(void) {
   return val;
 }
 
-void unmask_irq(void);
 void halt_forever(void) __attribute__((noreturn));
 
 #endif

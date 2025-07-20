@@ -17,10 +17,6 @@
 
 #include "arm.h"
 
-void unmask_irq(void) {
-  asm volatile("msr daifclr, #2");
-}
-
 void halt_forever(void) {
   for (;;) {
     asm volatile("wfi");
