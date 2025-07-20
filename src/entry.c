@@ -23,11 +23,7 @@
 
 static void load_vec_table(void) {
   extern char vec_table[];
-  asm volatile("msr vbar_el1, %0" : : "r"(vec_table));
-}
-
-static void unmask_irq(void) {
-  asm volatile("msr daifclr, #2");
+  write_vbar_el1((uint64_t)vec_table);
 }
 
 void kernel_entry(void) {

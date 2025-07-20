@@ -18,6 +18,8 @@
 #ifndef NETKERN_ARM_H_
 #define NETKERN_ARM_H_
 
+#include <stdint.h>
+
 #include "types.h"
 
 #define PHYS_START UL(0x40000000)
@@ -27,6 +29,26 @@
 
 #define PAGE_SIZE 4096
 
+static inline void write_vbar_el1(uint64_t val) {
+  asm volatile("msr vbar_el1, %0" : : "r"(val));
+}
+
+static inline void write_cntp_tval_el0(uint64_t val) {
+  asm volatile("msr cntp_tval_el0, %0" : : "r"(val));
+}
+
+static inline void write_cntp_ctl_el0(uint64_t val) {
+  asm volatile("msr cntp_ctl_el0, %0" : : "r"(val));
+}
+
+static inline uint64_t read_cntfrq_el0(void) {
+  uint64_t val;
+  asm volatile("mrs %0, cntfrq_el0" : "=r"(val));
+
+  return val;
+}
+
+void unmask_irq(void);
 void halt_forever(void) __attribute__((noreturn));
 
 #endif
