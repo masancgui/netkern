@@ -20,14 +20,17 @@
 #include <stdint.h>
 
 #include "arm.h"
-#include "gic.h"
+#include "gicv2.h"
 
 void timer_init(void) {
   gic_enable(TIMER_IRQ);
-
-  uint64_t freq = read_cntfrq_el0();
-  write_cntp_tval_el0(freq);
+  timer_set();
 
   // Enable the timer.
   write_cntp_ctl_el0(1);
+}
+
+void timer_set(void) {
+  uint64_t freq = read_cntfrq_el0();
+  write_cntp_tval_el0(freq);
 }

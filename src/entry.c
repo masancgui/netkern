@@ -16,7 +16,7 @@
  */
 
 #include "arm.h"
-#include "gic.h"
+#include "gicv2.h"
 #include "physmem.h"
 #include "print.h"
 #include "timer.h"
@@ -30,7 +30,7 @@ void kernel_entry(void) {
   load_vec_table();
   gic_init();
 
-  // Unmask IRQ.
+  // Unmask IRQ exceptions.
   asm volatile("msr daifclr, #2");
 
   physmem_init();

@@ -27,7 +27,7 @@ QEMUFLAGS = \
 OBJ = \
 	src/arm.o \
 	src/entry.o \
-	src/gic.o \
+	src/gicv2.o \
 	src/handle.o \
 	src/l.o \
 	src/physmem.o \

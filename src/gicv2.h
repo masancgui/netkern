@@ -15,12 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef NETKERN_GIC_H_
-#define NETKERN_GIC_H_
+#ifndef NETKERN_GICV2_H_
+#define NETKERN_GICV2_H_
 
 #include <stdint.h>
 
 void gic_init(void);
 void gic_enable(uint32_t id);
+uint32_t gic_iar(void);
+void gic_eoi(uint32_t id);
 
 #endif

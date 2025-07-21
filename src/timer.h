@@ -21,5 +21,6 @@
 #define TIMER_IRQ 30
 
 void timer_init(void);
+void timer_set(void);
 
 #endif

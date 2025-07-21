@@ -18,7 +18,9 @@
 #include <stdint.h>
 
 #include "arm.h"
+#include "gicv2.h"
 #include "print.h"
+#include "timer.h"
 
 struct regs {
   uint64_t x0;
@@ -93,6 +95,15 @@ void handle_except(struct regs *regs) {
 void handle_irq(struct regs *regs) {
   (void)regs;
 
-  print("IRQ\n");
-  halt_forever();
+  uint32_t iar = gic_iar();
+  switch (iar) {
+    case TIMER_IRQ:
+      print("Timer tick\n");
+      timer_set();
+      gic_eoi(iar);
+      break;
+    default:
+      panic("Unknown IRQ\n");
+      break;
+  }
 }
