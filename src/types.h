@@ -19,8 +19,10 @@
 #define NETKERN_TYPES_H_
 
 #ifdef __ASSEMBLER__
+#define U(x) x
 #define UL(x) x
 #else
+#define U(x) x##U
 #define UL(x) x##UL
 #endif
 

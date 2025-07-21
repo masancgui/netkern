@@ -28,16 +28,21 @@
 #define GICD_CTLR 0x0000
 #define GICD_ISENABLER 0x0100
 
+#define GICD_CTLR_ENABLE (U(1) << 0)
+
 #define GICC_BASE UL(0x8010000)
 #define GICC_CTLR 0x0000
 #define GICC_PMR 0x0004
 #define GICC_IAR 0x000c
 #define GICC_EOIR 0x0010
 
+#define GICC_CTLR_ENABLE (U(1) << 0)
+#define GICC_IAR_MASK 0x3ff
+
 void gic_init(void) {
   // Enable the distributor and CPU interface.
-  *(volatile uint32_t *)(GICD_BASE + GICD_CTLR) = 1;
-  *(volatile uint32_t *)(GICC_BASE + GICC_CTLR) = 1;
+  *(volatile uint32_t *)(GICD_BASE + GICD_CTLR) = GICD_CTLR_ENABLE;
+  *(volatile uint32_t *)(GICC_BASE + GICC_CTLR) = GICC_CTLR_ENABLE;
 
   // Set the lowest priority.
   *(volatile uint32_t *)(GICC_BASE + GICC_PMR) = 0xff;
@@ -45,11 +50,11 @@ void gic_init(void) {
 
 void gic_enable(uint32_t id) {
   volatile uint32_t *regs = (volatile uint32_t *)(GICD_BASE + GICD_ISENABLER);
-  regs[id / 32] = 1 << (id % 32);
+  regs[id / 32] = U(1) << (id % 32);
 }
 
 uint32_t gic_iar(void) {
-  return *(volatile uint32_t *)(GICC_BASE + GICC_IAR) & 0x3ff;
+  return *(volatile uint32_t *)(GICC_BASE + GICC_IAR) & GICC_IAR_MASK;
 }
 
 void gic_eoi(uint32_t id) {
