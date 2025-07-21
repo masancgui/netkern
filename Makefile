@@ -18,7 +18,7 @@ LDFLAGS = \
 	-Wl,-Tsrc/kernel.ld
 
 QEMUFLAGS = \
-	-machine virt \
+	-machine virt,gic-version=2 \
 	-cpu cortex-a53 \
 	-m 16M \
 	-nographic \
