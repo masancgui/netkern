@@ -18,6 +18,9 @@
 #ifndef NETKERN_GIC_H_
 #define NETKERN_GIC_H_
 
+#include <stdint.h>
+
 void gic_init(void);
+void gic_enable(uint32_t id);
 
 #endif

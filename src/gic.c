@@ -19,7 +19,6 @@
 
 #include <stdint.h>
 
-#include "timer.h"
 #include "types.h"
 
 // Thanks to this blog
@@ -40,7 +39,9 @@ void gic_init(void) {
 
   // Set the lowest priority.
   *(volatile uint32_t *)(GICC_BASE + GICC_PMR) = 0xff;
+}
 
-  // TODO: select the correct set-enable register.
-  *(volatile uint32_t *)(GICD_BASE + GICD_ISENABLER) = 1 << TIMER_IRQ;
+void gic_enable(uint32_t id) {
+  volatile uint32_t *regs = (volatile uint32_t *)(GICD_BASE + GICD_ISENABLER);
+  regs[id / 32] = 1 << (id % 32);
 }

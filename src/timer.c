@@ -20,8 +20,11 @@
 #include <stdint.h>
 
 #include "arm.h"
+#include "gic.h"
 
 void timer_init(void) {
+  gic_enable(TIMER_IRQ);
+
   uint64_t freq = read_cntfrq_el0();
   write_cntp_tval_el0(freq);
 
