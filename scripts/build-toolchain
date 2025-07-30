@@ -4,14 +4,14 @@ export PREFIX="$HOME/.local/cross"
 export TARGET=aarch64-elf
 export PATH="$PATH:$PREFIX/bin"
 
-MIRROR="${MIRROR:-https://ftp.gnu.org/gnu}"
+mirror="${MIRROR:-https://ftp.gnu.org/gnu}"
 
 binutils_version=2.44
 gcc_version=14.3.0
 
 set -xe
 
-wget $MIRROR/binutils/binutils-$binutils_version.tar.xz
+wget $mirror/binutils/binutils-$binutils_version.tar.xz
 tar -xf binutils-$binutils_version.tar.xz
 
 mkdir build-binutils
@@ -39,7 +39,7 @@ if ! command -v $TARGET-as >/dev/null 2>&1; then
   exit 1
 fi
 
-wget $MIRROR/gcc/gcc-$gcc_version/gcc-$gcc_version.tar.xz
+wget $mirror/gcc/gcc-$gcc_version/gcc-$gcc_version.tar.xz
 tar -xf gcc-$gcc_version.tar.xz
 
 mkdir build-gcc
