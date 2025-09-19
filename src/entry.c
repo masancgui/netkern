@@ -34,6 +34,12 @@ void kernel_entry(void) {
   asm volatile("msr daifclr, #2");
 
   physmem_init();
+
+  void *alloc1 = physmem_alloc();
+  void *alloc2 = physmem_alloc();
+  print("%lx\n", (uint64_t)alloc1);
+  print("%lx\n", (uint64_t)alloc2);
+
   print("Netkern entry\n");
 
   timer_init();

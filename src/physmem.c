@@ -47,7 +47,7 @@ void *physmem_alloc(void) {
 }
 
 void physmem_init(void) {
-  uintptr_t addr = (uintptr_t)__end;
+  uintptr_t addr = (uintptr_t)__end - HIGHER_HALF;
   for (; addr < PHYS_END; addr += PAGE_SIZE) {
     physmem_free((void *)addr);
   }

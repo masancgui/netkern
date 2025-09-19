@@ -27,6 +27,8 @@
 // of hardcoding this.
 #define PHYS_END (PHYS_START + 16 * 1024 * 1024)
 
+#define HIGHER_HALF UL(0xffff000000000000)
+
 #define PAGE_SIZE 4096
 
 static inline void write_vbar_el1(uint64_t val) {
