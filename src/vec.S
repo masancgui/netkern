@@ -60,51 +60,51 @@
 .global vec_table
 .align 11
 vec_table:
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
 
   .align 7
-  b _handle_except
+  b _handle_sync
   .align 7
   b _handle_irq
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
 
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
 
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
   .align 7
-  b _handle_except
+  b .
 
-START_PRIV_FUNC(_handle_except)
+START_PRIV_FUNC(_handle_sync)
   save_regs
 
   mov x0, sp
-  bl handle_except
+  bl handle_sync
 
   restore_regs
 
   eret
-END_FUNC(_handle_except)
+END_FUNC(_handle_sync)
 
 START_PRIV_FUNC(_handle_irq)
   save_regs

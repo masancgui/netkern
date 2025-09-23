@@ -28,12 +28,12 @@ OBJ = \
 	src/arm.o \
 	src/entry.o \
 	src/gicv2.o \
-	src/handle.o \
 	src/l.o \
 	src/physmem.o \
 	src/print.o \
 	src/string.o \
 	src/timer.o \
+	src/trap.o \
 	src/vec.o
 
 DEPS := $(OBJ:.o=.d)

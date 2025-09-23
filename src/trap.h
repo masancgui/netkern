@@ -15,29 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "arm.h"
-#include "gicv2.h"
-#include "physmem.h"
-#include "print.h"
-#include "timer.h"
-#include "trap.h"
+#ifndef NETKERN_TRAP_H_
+#define NETKERN_TRAP_H_
 
-void kernel_entry(void) {
-  load_vec_table();
-  gic_init();
-
-  irq_enable();
-
-  physmem_init();
-
-  void *alloc1 = physmem_alloc();
-  void *alloc2 = physmem_alloc();
-  print("%lx\n", (uint64_t)alloc1);
-  print("%lx\n", (uint64_t)alloc2);
-
-  print("Netkern entry\n");
-
-  timer_init();
-
-  halt_forever();
+static inline void irq_enable(void) {
+  // Unmask IRQ exceptions.
+  asm volatile("msr daifclr, #2");
 }
+
+void load_vec_table(void);
+
+#endif

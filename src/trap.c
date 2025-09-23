@@ -56,7 +56,13 @@ struct regs {
   uint64_t x30;
 };
 
-void handle_except(struct regs *regs) {
+extern char vec_table[];
+
+void load_vec_table(void) {
+  write_vbar_el1((uint64_t)vec_table);
+}
+
+void handle_sync(struct regs *regs) {
   print("x0: %lx\n", regs->x0);
   print("x1: %lx\n", regs->x1);
   print("x2: %lx\n", regs->x2);
