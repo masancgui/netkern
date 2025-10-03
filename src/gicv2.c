@@ -50,7 +50,7 @@ void gic_init(void) {
 
 void gic_enable(uint32_t id) {
   volatile uint32_t *regs = (volatile uint32_t *)(GICD_BASE + GICD_ISENABLER);
-  regs[id / 32] = U(1) << (id % 32);
+  regs[id / 32] = 1U << (id % 32);
 }
 
 uint32_t gic_iar(void) {

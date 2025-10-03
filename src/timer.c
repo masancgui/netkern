@@ -21,13 +21,16 @@
 
 #include "arm.h"
 #include "gicv2.h"
+#include "types.h"
+
+#define CNTP_CTL_ENABLE (UL(1) << 0)
 
 void timer_init(void) {
   gic_enable(TIMER_IRQ);
   timer_set();
 
   // Enable the timer.
-  write_cntp_ctl_el0(1);
+  write_cntp_ctl_el0(CNTP_CTL_ENABLE);
 }
 
 void timer_set(void) {
